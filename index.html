@@ -77,6 +77,15 @@
         display: none;
     }
 
+    /* Custom idle image — identical box to the fart gif so the
+       two line up perfectly when they swap */
+    #rabbitIdle img {
+        width: 170px;
+        height: 170px;
+        object-fit: contain;
+        display: block;
+    }
+
     /* Green stink puff — pure CSS, works even before you add the gif */
     .puff {
         position: absolute;
@@ -323,17 +332,9 @@
 //    That's it — the machine picks one at random every toot.
 // ============================================================
 const FART_SOUNDS = [
-    'sounds/fart1.wav',   
-    'sounds/fart2.wav',   
-    'sounds/fart3.wav',   
-    'sounds/fart4.wav',   
-    'sounds/fart5.wav',   
-    'sounds/fart6.wav',   
-    'sounds/fart7.wav',   
-    'sounds/fart8.wav',   
-    'sounds/fart9.wav',   
-    'sounds/fart10.wav',   
-    'sounds/fart11.wav'    
+    'sounds/fart1.wav',   // PLACEHOLDER — replace with your file
+    'sounds/fart2.wav',   // PLACEHOLDER — replace with your file
+    'sounds/fart3.wav'    // PLACEHOLDER — replace with your file
     // 'sounds/mega-ripper.wav',   <-- just add more lines like this
 ];
 
@@ -353,7 +354,7 @@ const GIF_DURATION_MS = 1500;
 //   it replaces the 🐰 emoji. Leave it '' to keep the emoji.
 // ============================================================
 const GIF_FILE = 'rabbit-fart.gif';
-const IDLE_IMAGE = 'rabbit-fart.png';   
+const IDLE_IMAGE = '';   // e.g. 'rabbit-idle.png'
 
 // Preload the gif at startup so the very first toot doesn't
 // wait on a disk read/decode
@@ -361,9 +362,12 @@ const gifPreload = new Image();
 gifPreload.src = GIF_FILE;
 
 // Swap in the custom idle image if one is configured
+// (sizing comes from the #rabbitIdle img CSS rule — same
+// 170x170 box as the fart gif, so they swap seamlessly)
 if (IDLE_IMAGE) {
     const idleEl = document.getElementById('rabbitIdle');
-    idleEl.innerHTML = '<img src="' + IDLE_IMAGE + '" alt="" style="width:150px;height:150px;object-fit:contain;">';
+    idleEl.innerHTML = '<img src="' + IDLE_IMAGE + '" alt="">';
+    idleEl.style.fontSize = '0'; // neutralize the emoji font sizing
 }
 
 // ------------------------------------------------------------
